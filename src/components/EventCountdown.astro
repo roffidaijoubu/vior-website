@@ -1,5 +1,5 @@
 ---
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 
 interface Props {
   eventName: string;
@@ -7,18 +7,29 @@ interface Props {
   eventUrl: string;
   eventDatetime: Date;
   eventButtonLabel?: string;
+  eventStartedButtonLabel?: string;
   eventSecondaryUrl?: {
     label: string;
     url: string;
   };
 }
 
-const { eventName, eventImage, eventUrl, eventDatetime, eventButtonLabel = "Watch Stream", eventSecondaryUrl } = Astro.props;
+const { 
+  eventName, 
+  eventImage, 
+  eventUrl, 
+  eventDatetime, 
+  eventButtonLabel = "Go to Waiting Room", 
+  eventStartedButtonLabel = "Watch Stream",
+  eventSecondaryUrl 
+} = Astro.props;
 
 // Generate a unique ID for this component instance
 const countdownId = `countdown-${Math.random().toString(36).substr(2, 9)}`;
 
-const formatDate = (date: Date) => format(date, "yyyyMMdd'T'HHmmss");
+const wibTimeZone = 'Asia/Jakarta';
+
+const formatDate = (date: Date) => formatInTimeZone(date, wibTimeZone, "yyyyMMdd'T'HHmmss");
 const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventName)}&dates=${formatDate(eventDatetime)}/${formatDate(eventDatetime)}&location=${encodeURIComponent(eventUrl)}&sf=true&output=xml`;
 
 const icsData = `BEGIN:VCALENDAR
@@ -33,19 +44,33 @@ END:VEVENT
 END:VCALENDAR`;
 
 const icsFile = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}`;
+
+const now = new Date();
+const hasStarted = now > eventDatetime;
+const currentButtonLabel = hasStarted ? eventStartedButtonLabel : eventButtonLabel;
+
+// ... rest of the existing code ...
 ---
 
 <div class="bg-white rounded-lg p-6 my-8">
     <img src={eventImage} alt={eventName} class="w-full rounded-lg object-cover m-2 mx-auto shadow-md" />
 
-  <h3 class="text-xl font-bold mb-4 text-secondary">{eventName}</h3>
+  <h3 class="text-xl font-bold mb-4 text-secondary text-center">{eventName}</h3>
   <div class="flex flex-col md:flex-row gap-6">
-    <div class="flex-1">
-      <p class="text-xl mb-2 text-secondary"><i class="fas fa-calendar-alt mr-2"></i>{format(eventDatetime, 'MMMM d, yyyy h:mm a')}</p>
-      <div id={countdownId} class="text-xl font-bold mb-4 text-secondary"><i class="fas fa-hourglass-half mr-2"></i></div>
+    <div class="flex-1 text-center">
+    <div id={countdownId} class="text-2xl font-bold mb-4 text-secondary"></div>
+
+      <p class="text-lg mb-2 text-secondary">
+        <i class="fas fa-calendar-alt mr-2"></i>
+        {formatInTimeZone(eventDatetime, wibTimeZone, 'MMMM d, yyyy')}
+      </p>
+      <p class="text-lg text-secondary mb-4">
+        <i class="fas fa-clock mr-2"></i>
+        {formatInTimeZone(eventDatetime, wibTimeZone, 'h:mm a (zzz)')}
+      </p>
       <div class="flex flex-col gap-2 mb-2">
         <a href={eventUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg flex-1 justify-center items-center">
-          <i class="fas fa-external-link-alt mr-2"></i>{eventButtonLabel}
+          <i class="fas fa-external-link-alt mr-2"></i>{currentButtonLabel}
         </a>
         {eventSecondaryUrl && (
           <a href={eventSecondaryUrl.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-outline flex-1 justify-center items-center">
@@ -74,7 +99,7 @@ const icsFile = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}
   </div>
 </div>
 
-<script define:vars={{ eventDatetime, countdownId }}>
+<script define:vars={{ eventDatetime, countdownId, wibTimeZone, eventStartedButtonLabel }}>
   function updateCountdown() {
     const now = new Date().getTime();
     const eventTime = new Date(eventDatetime).getTime();
@@ -83,7 +108,12 @@ const icsFile = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}
     const countdownElement = document.getElementById(countdownId);
 
     if (timeLeft < 0) {
-      countdownElement.innerHTML = '<i class="fas fa-hourglass-half mr-2"></i>Event has started!';
+      countdownElement.innerHTML = 'Event has started!';
+      // Update button label when event starts
+      const buttonElement = document.querySelector(`#${countdownId}`).closest('.bg-white').querySelector('.btn-lg');
+      if (buttonElement) {
+        buttonElement.innerHTML = `<i class="fas fa-external-link-alt mr-2"></i>${eventStartedButtonLabel}`;
+      }
       return;
     }
 
@@ -92,7 +122,7 @@ const icsFile = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}
     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-    countdownElement.innerHTML = `<i class="fas fa-hourglass-half mr-2"></i>${days}d ${hours}h ${minutes}m ${seconds}s`;
+    countdownElement.innerHTML = `</i>${days}d ${hours}h ${minutes}m ${seconds}s`;
   }
 
   updateCountdown();

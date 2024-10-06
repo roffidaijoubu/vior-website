@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AffiliateDetailTemplate from "../../components/AffiliateDetailTemplate.astro";
+import { getAffiliateBySlug, affiliates } from "../../data/affiliates";
+
+export function getStaticPaths() {
+  return affiliates.map(affiliate => ({
+    params: { slug: affiliate.slug },
+    props: { affiliate },
+  }));
+}
+
+const { slug } = Astro.params;
+const affiliateData = getAffiliateBySlug(slug);
+
+if (!affiliateData) {
+  return Astro.redirect('/404');
+}
+---
+
+<Layout title={`${affiliateData.name} | VIOR Tower Affiliates`}>
+  <main class="container mx-auto py-8">
+    <AffiliateDetailTemplate {...affiliateData} />
+  </main>
+</Layout>

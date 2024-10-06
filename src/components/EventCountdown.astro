@@ -1,0 +1,95 @@
+---
+import { format } from 'date-fns';
+
+interface Props {
+  eventName: string;
+  eventImage: string;
+  eventUrl: string;
+  eventDatetime: Date;
+  eventButtonLabel?: string;
+  eventSecondaryUrl?: {
+    label: string;
+    url: string;
+  };
+}
+
+const { eventName, eventImage, eventUrl, eventDatetime, eventButtonLabel = "Watch Stream", eventSecondaryUrl } = Astro.props;
+
+const formatDate = (date: Date) => format(date, "yyyyMMdd'T'HHmmss");
+const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventName)}&dates=${formatDate(eventDatetime)}/${formatDate(eventDatetime)}&location=${encodeURIComponent(eventUrl)}&sf=true&output=xml`;
+
+const icsData = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+URL:${eventUrl}
+LOCATION:${eventUrl}
+DTSTART:${formatDate(eventDatetime)}
+DTEND:${formatDate(eventDatetime)}
+SUMMARY:${eventName}
+END:VEVENT
+END:VCALENDAR`;
+
+const icsFile = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}`;
+---
+
+<div class="bg-white rounded-lg p-6 my-8">
+  <h2 class="text-md font-bold mb-2 text-primary">Upcoming Event:</h2>
+  <h3 class="text-2xl font-bold mb-4 text-secondary">{eventName}</h3>
+  <div class="flex flex-col md:flex-row gap-6">
+    <img src={eventImage} alt={eventName} class="w-full md:w-1/3 rounded-lg object-cover" />
+    <div class="flex-1">
+      <p class="text-xl mb-2 text-secondary"><i class="fas fa-calendar-alt mr-2"></i>Event Date: {format(eventDatetime, 'MMMM d, yyyy h:mm a')}</p>
+      <div id="countdown" class="text-2xl font-bold mb-4 text-secondary"><i class="fas fa-hourglass-half mr-2"></i></div>
+      <div class="flex flex-col sm:flex-row gap-2 mb-2">
+        <a href={eventUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary flex-1 justify-center items-center">
+          <i class="fas fa-external-link-alt mr-2"></i>{eventButtonLabel}
+        </a>
+        {eventSecondaryUrl && (
+          <a href={eventSecondaryUrl.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary flex-1 justify-center items-center">
+            <i class="fas fa-external-link-alt mr-2"></i>{eventSecondaryUrl.label}
+          </a>
+        )}
+      </div>
+      <div class="dropdown dropdown-top dropdown-end w-full">
+        <label tabindex="0" class="btn btn-secondary w-full">
+          <i class="fas fa-bell mr-2"></i>Remind Me
+        </label>
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li>
+            <a href={googleCalendarUrl} target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-google mr-2"></i>Add to Google Calendar
+            </a>
+          </li>
+          <li>
+            <a href={icsFile} download={`${eventName}.ics`}>
+              <i class="fas fa-calendar-plus mr-2"></i>Download .ics
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ eventDatetime }}>
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const eventTime = new Date(eventDatetime).getTime();
+    const timeLeft = eventTime - now;
+
+    if (timeLeft < 0) {
+      document.getElementById('countdown').innerHTML = '<i class="fas fa-hourglass-half mr-2"></i>Event has started!';
+      return;
+    }
+
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerHTML = `<i class="fas fa-hourglass-half mr-2"></i>${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

@@ -28,7 +28,7 @@ export const events: Event[] = [
     },
     affiliateSlug: "ahomika"
   },
-  // Add more events as needed
+  
 ];
 
 export function getEventsByAffiliateSlug(slug: string): Event[] {

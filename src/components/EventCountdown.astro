@@ -44,17 +44,17 @@ const icsFile = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}
       <p class="text-xl mb-2 text-secondary"><i class="fas fa-calendar-alt mr-2"></i>{format(eventDatetime, 'MMMM d, yyyy h:mm a')}</p>
       <div id={countdownId} class="text-xl font-bold mb-4 text-secondary"><i class="fas fa-hourglass-half mr-2"></i></div>
       <div class="flex flex-col gap-2 mb-2">
-        <a href={eventUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary flex-1 justify-center items-center">
+        <a href={eventUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg flex-1 justify-center items-center">
           <i class="fas fa-external-link-alt mr-2"></i>{eventButtonLabel}
         </a>
         {eventSecondaryUrl && (
-          <a href={eventSecondaryUrl.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary flex-1 justify-center items-center">
+          <a href={eventSecondaryUrl.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-outline flex-1 justify-center items-center">
             <i class="fas fa-external-link-alt mr-2"></i>{eventSecondaryUrl.label}
           </a>
         )}
       </div>
       <div class="dropdown dropdown-top dropdown-end w-full">
-        <label tabindex="0" class="btn btn-secondary w-full">
+        <label tabindex="0" class="btn btn-secondary btn-outline w-full">
           <i class="fas fa-bell mr-2"></i>Remind Me
         </label>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">

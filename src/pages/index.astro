@@ -1,14 +1,32 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import EventCountdown from "../components/EventCountdown.astro";
+import { getUpcomingEvents } from "../data/events";
+
+const upcomingEvents = getUpcomingEvents();
 ---
 
 <Layout title='Welcome to VIOR Tower'>
-  <main class='container mx-auto h-screen flex flex-col justify-center items-center'>
-    <h1 class='text-4xl font-bold'>Welcome to VIOR Tower</h1>
-    <img src='/images/vior-logo.png' alt='VIOR Tower' class='w-1/2 mx-auto max-w-sm' />
-    <div class='flex justify-center gap-4'>
+  <main class='container mx-auto py-8'>
+    <h1 class='text-4xl font-bold text-center mb-8'>Welcome to VIOR Tower</h1>
+    <img src='/images/vior-logo.png' alt='VIOR Tower' class='w-1/2 mx-auto max-w-sm mb-8' />
+    <div class='flex justify-center gap-4 mb-8'>
       <a href='https://discord.gg/szF7kbw2gU' class='btn btn-primary'><i class="fa-brands fa-discord"></i> Join our Discord</a>
       <a href='/affiliates' class='btn btn-secondary'><i class="fa-solid fa-users"></i> Our Affiliated Talents</a>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+    <h2 class='text-3xl font-bold text-center mb-4'>Upcoming Events</h2>
+      {upcomingEvents.map(event => (
+        <EventCountdown
+        eventName={event.name}
+        eventImage={event.image}
+        eventUrl={event.url}
+        eventDatetime={event.datetime}
+        eventButtonLabel={event.buttonLabel}
+        eventSecondaryUrl={event.secondaryUrl}
+        />
+      ))}
     </div>
   </main>
 </Layout>

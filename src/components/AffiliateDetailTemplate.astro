@@ -1,20 +1,17 @@
 ---
 import EventCountdown from './EventCountdown.astro';
+import { getEventsByAffiliateSlug } from '../data/events';
 
 interface Props {
   name: string;
   image: string;
   description: string;
   socialLinks: { platform: string; url: string }[];
-  event?: {
-    name: string;
-    image: string;
-    url: string;
-    datetime: Date;
-  };
+  slug: string;
 }
 
-const { name, image, description, socialLinks, event } = Astro.props;
+const { name, image, description, socialLinks, slug } = Astro.props;
+const affiliateEvents = getEventsByAffiliateSlug(slug);
 ---
 
 <div class="max-w-4xl mx-auto">
@@ -24,16 +21,18 @@ const { name, image, description, socialLinks, event } = Astro.props;
     <img src={image} alt={name} class="w-64 h-64 mx-auto rounded-full object-cover mb-4">
     <h1 class="text-4xl font-bold mb-2">{name}</h1>
   </div>
-  {event && (
-      <EventCountdown
-        eventName={event.name}
-        eventImage={event.image}
-        eventUrl={event.url}
-        eventDatetime={event.datetime}
-        eventButtonLabel={event.buttonLabel}
-        eventSecondaryUrl={event.secondaryUrl}
-      />
-  )}
+  
+  {affiliateEvents.map(event => (
+    <EventCountdown
+      eventName={event.name}
+      eventImage={event.image}
+      eventUrl={event.url}
+      eventDatetime={event.datetime}
+      eventButtonLabel={event.buttonLabel}
+      eventSecondaryUrl={event.secondaryUrl}
+    />
+  ))}
+  
   <div class="prose lg:prose-xl mx-auto mb-8">
     <p>{description}</p>
   </div>

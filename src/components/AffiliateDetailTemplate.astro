@@ -71,8 +71,9 @@ const remainingEvents = affiliateEvents.slice(1);
                   />
                   <p class="mt-2 text-sm text-center">{work.title}</p>
                 </a>
-                <div class={`glightbox-desc custom-desc-${work.youtubeUrl.split('v=')[1]}`}>
-                  <a href={work.youtubeUrl} target="_blank" rel="noopener noreferrer" class="inline-block bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
+                <div class={`glightbox-desc custom-desc-${work.youtubeUrl.split('v=')[1]} flex justify-between items-center`}>
+                  <p class="text-sm">{work.title}</p>
+                  <a href={work.youtubeUrl} target="_blank" rel="noopener noreferrer" class="inline-block bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors text-sm">
                     Watch on YouTube
                   </a>
                 </div>
@@ -121,6 +122,18 @@ const remainingEvents = affiliateEvents.slice(1);
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
+<style is:global>
+  .glightbox-container .gslide-description {
+    background: #fff;
+  }
+  .glightbox-container .gslide-description .gdesc-inner {
+    padding: 1rem;
+  }
+  .glightbox-container .gslide-title {
+    display: none;
+  }
+</style>
+
 <script>
   import GLightbox from 'glightbox';
 
@@ -133,8 +146,6 @@ const remainingEvents = affiliateEvents.slice(1);
       plyr: {
         config: {
           ratio: '16:9',
-          muted: false,
-          hideControls: false,
           youtube: {
             noCookie: true,
             rel: 0,

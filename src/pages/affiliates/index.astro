@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const affiliates = [
+  { name: "AHO_Mika", slug: "ahomika", description: "The NPC Idol" },
+  { name: "Futabi Eita", slug: "futabi-eita", description: "The Sly Fox" },
+  { name: "Xena Celestia", slug: "xena-celestia", description: "The Celestial Gamer" },
+];
+---
+<Layout title="Our Affiliated Talents | VIOR Tower">
+  <main class="container mx-auto py-8">
+    <h1 class="text-4xl font-bold mb-8">Our Affiliated Talents</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {affiliates.map((affiliate) => (
+        <a
+          href={`/affiliates/${affiliate.slug}`}
+          class="group flex justify-between items-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        >
+          <div class="">
+            <h2 class="text-2xl font-semibold mb-2">{affiliate.name}</h2>
+            <p class="text-gray-600">{affiliate.description}</p>
+          </div>
+          <i class="fa-solid fa-arrow-right text-2xl text-gray-600 group-hover:text-primary transition-colors"></i>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>

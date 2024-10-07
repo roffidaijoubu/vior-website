@@ -19,7 +19,7 @@ export const events: Event[] = [
   {
     id: "ahomika-debut",
     name: "DEBUT STREAM 2.0 #MikaLegs",
-    image: "https://cdn.discordapp.com/attachments/1291344523175399504/1291861293543850005/Affiliated_talent_20241005_033518_0000.png?ex=67039d56&is=67024bd6&hm=edc6b08e77da7427639a0868653e31eb8865d32573a30ca5be44d6beef903c7b&",
+    image: "https://img.youtube.com/vi/K9qx-uEBPPc/maxresdefault.jpg",
     url: "https://www.youtube.com/live/K9qx-uEBPPc",
     datetime: new Date("2024-10-12T13:00:00Z"),
     buttonLabel: "Go to Waiting Room",

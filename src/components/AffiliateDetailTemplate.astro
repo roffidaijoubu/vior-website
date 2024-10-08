@@ -158,7 +158,7 @@ const remainingEvents = affiliateEvents.slice(1);
   }
 </style>
 
-<script>
+<script define:vars={{ slug }}>
   import GLightbox from 'glightbox';
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -179,6 +179,23 @@ const remainingEvents = affiliateEvents.slice(1);
         }
       },
       descPosition: 'bottom'
+    });
+
+    // Track page visit
+    fetch('/.netlify/functions/track', {
+      method: 'POST',
+      body: JSON.stringify({ type: 'pageVisit', affiliateSlug: slug })
+    });
+
+    // Track event URL clicks
+    document.querySelectorAll('a[href^="http"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const eventUrl = e.currentTarget.href;
+        fetch('/.netlify/functions/track', {
+          method: 'POST',
+          body: JSON.stringify({ type: 'eventUrlClick', affiliateSlug: slug, eventUrl })
+        });
+      });
     });
   });
 </script>

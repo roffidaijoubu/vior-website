@@ -6,15 +6,16 @@ export interface Affiliate {
   description: string;
   image: string;
   socialLinks: { platform: string; url: string }[];
-  pastWorks?: { title: string; youtubeUrl: string }[]; // Add this line
+  pastWorks?: { title: string; youtubeUrl: string }[];
+  featuredVideo?: { title: string; youtubeId: string }; // Changed to a single object
 }
 
 export const affiliates: Affiliate[] = [
   {
     name: "AHO_Mika",
     slug: "ahomika",
-    description: "Ahomika is a talented virtual singer known for her soulful voice and captivating performances. With a unique blend of pop and R&B influences, she has quickly become a fan favorite in the VIOR Tower community.",
-    image: "https://yt3.googleusercontent.com/UDPq05vYqFuX5A_I0fPWfF0laETeiHDsAZ2Pk7YjpYQfgxHcA-c1YOKRE1RcfMkHf3pXj7vOWg=s160-c-k-c0x00ffffff-no-rj",
+    description: "Ahomika is a talented NPC Idol VSinger who has captivated the VIOR Tower community with her exceptional vocal prowess. Primarily focusing on singing and voice acting, she's also known to enjoy gaming. Ahomika's passion for music shines through her numerous cover songs, mostly Japanese and anime tracks, performed with such authenticity that listeners might mistake her for a native speaker. With an original song already under her belt and dreams of making it big, Ahomika continues to enchant her growing fanbase with her soulful voice and dedication to her craft.",
+    image: "https://yt3.googleusercontent.com/UDPq05vYqFuX5A_I0fPWfF0laETeiHDsAZ2Pk7YjpYQfgxHcA-c1YOKRE1RcfMkHf3pXj7vOWg=s0",
     socialLinks: [
       { platform: "Twitter", url: "https://twitter.com/ahomika_ch" },
       { platform: "YouTube", url: "https://www.youtube.com/@ahomika_ch" },
@@ -36,28 +37,31 @@ export const affiliates: Affiliate[] = [
       { title: "花になって - 緑黄色社会【COVER】", youtubeUrl: "https://www.youtube.com/watch?v=twT0WECoRpQ" },
       { title: "If I Can Stop One Heart From Breaking (Honkai: Star Rail 2.0) ー Cover", youtubeUrl: "https://www.youtube.com/watch?v=J-870Wwx64M" },
     ],
+    featuredVideo: { title: "Debut Trailer", youtubeId: "sOrVOap8KbU" },
   },
   {
     name: "Futabi Eita",
     slug: "futabi-eita",
-    description: "Futabi Eita is a talented virtual singer known for her soulful voice and captivating performances. With a unique blend of pop and R&B influences, she has quickly become a fan favorite in the VIOR Tower community.",
-    image: "https://yt3.googleusercontent.com/Z26ObrKM-aUuzFIocQsGsVjgR98UanUACsKFEOiqwWZ3UDXpq81Oi94sFF9MPjRoFIfvGb-JGls=s160-c-k-c0x00ffffff-no-rj",
+    description: "Futabi Eita is a charismatic Kitsune VTuber known for her incredible entertainment skills and engaging personality. As an avid Valorant player, she brings excitement and energy to her streams. Eita's natural talent for interacting with her live audience chat creates a vibrant and welcoming community in the VIOR Tower.",
+    image: "https://yt3.googleusercontent.com/Z26ObrKM-aUuzFIocQsGsVjgR98UanUACsKFEOiqwWZ3UDXpq81Oi94sFF9MPjRoFIfvGb-JGls=s0",
     socialLinks: [
       { platform: "Twitter", url: "https://twitter.com/eita_wee" },
       { platform: "YouTube", url: "https://www.youtube.com/@Eitaweee" },
       { platform: "Tiktok", url: "https://www.tiktok.com/@eitaweee" },
     ],
+    featuredVideo: { title: "Debut Trailer", youtubeId: "1jPIjmqCR4E" },
   },
   {
     name: "Xena Celestia",
     slug: "xena-celestia",
-    description: "Xena Celestia is a talented virtual singer known for her soulful voice and captivating performances. With a unique blend of pop and R&B influences, she has quickly become a fan favorite in the VIOR Tower community.",
-    image: "https://yt3.googleusercontent.com/47TagDVO0a2WYRpnSxA5-zNpikjxzxfi8BrEaDajbuHzJ4KqKTp5S-OnATBhnVe7Tl4FQ4wiJlM=s160-c-k-c0x00ffffff-no-rj",
+    description: "Known as the Adonis Healer, Xena Celestia is an energetic virtual entertainer who brings joy and excitement to the VIOR Tower community. With a passion for gaming, she loves to play and vibe with friends, especially during thrilling horror game sessions. Her engaging personality and soothing presence make her a beloved figure among fans.",
+    image: "https://yt3.googleusercontent.com/47TagDVO0a2WYRpnSxA5-zNpikjxzxfi8BrEaDajbuHzJ4KqKTp5S-OnATBhnVe7Tl4FQ4wiJlM=s0",
     socialLinks: [
       { platform: "Twitter", url: "https://twitter.com/xena_celestia" },
       { platform: "YouTube", url: "https://www.youtube.com/@xena_celestia" },
       { platform: "Tiktok", url: "https://www.tiktok.com/@xena_celestia" },
     ],
+    featuredVideo: { title: "Lore", youtubeId: "Nrw8x3bHNbs" },
   },
 ];
 

@@ -47,7 +47,7 @@ function formatIndonesianDate(date: Date): string {
     <div class="card-front flex flex-col justify-start items-start p-6">
       <img src={event.image} alt={event.name} class="event-image rounded-2xl object-cover border-4 border-black/10 shadow-2xl mx-auto w-full" />
       <h2 class="text-4xl font-bold text-black/80 font-anybody text-center w-full leading-tight mt-6 mb-0">{event.name}</h2>
-      <div id={countdownId} class="countdown text-4xl font-bold text-secondary/80 font-anybody flex justify-center w-full leading-tight mb-4"></div>
+      <div id={countdownId} class="countdown text-6xl font-bold text-secondary/80 font-anybody flex justify-center w-full leading-tight mb-4"></div>
       <p class="event-date text-2xl text-black/80 font-bold font-anybody flex justify-center w-full leading-tight">
         {formatIndonesianDate(new Date(event.datetime))}
       </p>
@@ -118,7 +118,7 @@ function formatIndonesianDate(date: Date): string {
     margin-bottom: 20px;
   }
   .countdown {
-    font-size: 2.4em;
+    /* font-size: 2.4em; */
     margin-bottom: 20px;
   }
   .event-date, .event-time {

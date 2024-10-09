@@ -44,18 +44,18 @@ function formatIndonesianDate(date: Date): string {
     <div class="card-back">
       <img src="/images/card-back.jpg" alt="Card Back" />
     </div>
-    <div class="card-front flex flex-col justify-start items-start p-3">
-      <img src={event.image} alt={event.name} class="event-image rounded-lg object-cover border-2 border-black/10 shadow-xl  mx-auto" />
-      <h2 class="text-2xl font-bold text-black/80 font-anybody text-center w-full leading-tight mt-3 mb-0">{event.name}</h2>
-      <div id={countdownId} class="countdown text-2xl font-bold text-secondary/80 font-anybody flex justify-center w-full leading-tight mb-2"></div>
-      <p class="event-date text-lg text-black/80 font-bold font-anybody flex justify-center w-full leading-tight ">
+    <div class="card-front flex flex-col justify-start items-start p-6">
+      <img src={event.image} alt={event.name} class="event-image rounded-2xl object-cover border-4 border-black/10 shadow-2xl mx-auto w-full" />
+      <h2 class="text-4xl font-bold text-black/80 font-anybody text-center w-full leading-tight mt-6 mb-0">{event.name}</h2>
+      <div id={countdownId} class="countdown text-4xl font-bold text-secondary/80 font-anybody flex justify-center w-full leading-tight mb-4"></div>
+      <p class="event-date text-2xl text-black/80 font-bold font-anybody flex justify-center w-full leading-tight">
         {formatIndonesianDate(new Date(event.datetime))}
       </p>
-      <p class="event-time text-lg text-black/80 font-anybody flex justify-center w-full leading-tight mb-1">
+      <p class="event-time text-2xl text-black/80 font-anybody flex justify-center w-full leading-tight mb-2">
         {formatInTimeZone(event.datetime, wibTimeZone, "HH:mm 'WIB (GMT +7)'", { locale: id })}
       </p>
-      <div class="qr-code-container mt-1 mx-auto">
-        <img src={qrCodeDataUrl} alt="Event QR Code" class="qr-code rounded-lg object-cover border-2 border-black/10 shadow-xl h-full w-full" />
+      <div class="qr-code-container mt-2 mx-auto">
+        <img src={qrCodeDataUrl} alt="Event QR Code" class="qr-code rounded-2xl object-cover border-4 border-black/10 shadow-2xl h-full w-full" />
       </div>
     </div>
   </div>
@@ -63,9 +63,9 @@ function formatIndonesianDate(date: Date): string {
 
 <style>
   .event-card {
-    width: 300px;
-    height: 450px;
-    perspective: 1000px;
+    width: 600px;
+    height: 900px;
+    perspective: 2000px;
     background-color: transparent;
   }
   .event-card:not(.debug-mode) {
@@ -93,9 +93,8 @@ function formatIndonesianDate(date: Date): string {
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   }
   .card-back {
     background-color: #f1f1f1;
@@ -109,11 +108,23 @@ function formatIndonesianDate(date: Date): string {
     background-position: center;
     background-color: white !important;
   }
+  .event-image {
+    width: 90%;
+    height: auto;
+    max-height: 400px; /* Adjust as needed */
+  }
   h2 {
-    font-size: 1.2em;
+    font-size: 2.4em;
+    margin-bottom: 20px;
+  }
+  .countdown {
+    font-size: 2.4em;
+    margin-bottom: 20px;
+  }
+  .event-date, .event-time {
+    font-size: 1.8em;
     margin-bottom: 10px;
   }
-
   @keyframes popIn {
     0% {
       transform: scale(0) rotate(180deg);
@@ -134,7 +145,7 @@ function formatIndonesianDate(date: Date): string {
   }
   @keyframes floatingCard {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-20px); }
   }
 
   .qr-code-container {
@@ -145,8 +156,8 @@ function formatIndonesianDate(date: Date): string {
   }
 
   .qr-code {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
   }
 </style>
 

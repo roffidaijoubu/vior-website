@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/OBS.astro';
+import EventCard from '../../components/EventCard.astro';
+import { events } from '../../data/events';
+
+export function getStaticPaths() {
+  return events.map(event => ({
+    params: { id: event.id },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+---
+
+<Layout title={`Event: ${event.name}`}>
+  <main>
+    <EventCard event={event} debug={false} />
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: transparent;
+  }
+</style>

@@ -10,7 +10,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang='en' data-theme='light'>
   <head>
     <meta charset='UTF-8' />
     <meta name='description' content='VIOR is an academic community for Indonesian Valorant players, especially Vstreamers and VTubers, aimed at honing talents and skills. We feature an esports Valorant team and affiliated VTubers.' />
@@ -39,7 +39,8 @@ const { title } = Astro.props;
   <!-- You can add or remove the tailwind classes below or tweak the daisy ui theme -->
   <body
     data-theme='light'
-    class='bg-none'
+    class='bg-none bg-transparent'
+    style='background-color: rgb(0, 0, 0,0) !important;'
   >
       <slot />
   </body>
